@@ -9,9 +9,9 @@ all_matches = []
 
 for year in years:
     data = requests.get(standing_url)
-    print(data)
+    #print(data)
     soup = BeautifulSoup(data.text, features="html.parser")
-    print(soup)
+    #print(soup)
     standing_table = soup.select("table.stats_table")[0]
     
     links = standing_table.find_all("a")
@@ -45,9 +45,9 @@ for year in years:
         team_data["Season"] = year
         team_data["Team"] = team_name
         all_matches.append(team_data)
-        time.sleep(1)
+        time.sleep(30)
 
 match_df = pd.concat(all_matches)
 match_df.columns = [c.lower() for c in match_df.columns]
-match_df.to_csv("/data/matches.csv")
+match_df.to_csv("data/matches.csv")
         
